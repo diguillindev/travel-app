@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Destinos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item *ngFor="let destino of destinos">
+      <ion-label>{{ destino.name }}</ion-label>
+      <ion-thumbnail slot="start">
+        <img [src]="destino.image">
+      </ion-thumbnail>
+      <p>País: {{ destino.country }}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>-->
+<ion-content [fullscreen]="true">
+  <ion-searchbar (ionInput)="onSearchChange($event)" placeholder="Buscar destinos"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let destino of destinos">
+      <ion-label>{{ destino.name }}</ion-label>
+      <p>País: {{ destino.image }}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
