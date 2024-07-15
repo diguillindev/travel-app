@@ -19,8 +19,9 @@
   <ion-searchbar (ionInput)="onSearchChange($event)" placeholder="Buscar destinos"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let destino of destinos">
+      <ion-img [src]="destino.source"/>
       <ion-label>{{ destino.name }}</ion-label>
-      <p>País: {{ destino.image }}</p>
+      <p>{{ destino.country }}</p>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -20,7 +20,7 @@ export interface ListaSugerida {
     constructor(
       public xid: string,
       public name: string, 
-      public image: string, // Imagen vacía ya que no es proporcionada por la API
+      public source: string = "", // Imagen vacía ya que no es proporcionada por la API en autosugggest
       public country: string
     ) {}
   }
