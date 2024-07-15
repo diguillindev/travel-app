@@ -35,8 +35,11 @@
     <ion-item *ngFor="let destino of favoritos">
       <ion-img [src]="destino.source"/>
       <ion-label>{{ destino.name }}<br>{{ destino.country }}</ion-label>
-      <ion-icon name="airplane-outline"></ion-icon>
-      <ion-label>{{destino?.precioAprox}}</ion-label>
+      <ion-button fill="clear" (click)="abrirModalPrecio(destino)">
+        <ion-icon name="airplane-outline"></ion-icon>
+      </ion-button>
+      
+      <ion-label>{{destino?.precioAproxStr}}</ion-label>
     </ion-item>
   </ion-list>
 
@@ -47,13 +50,13 @@
     <ion-header>
       <ion-title>$400</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="setModalPriceOpen(false)">cerrar</ion-button>
+        <ion-button (click)="setModalPriceOpen(false)">Valor del vuelo ida y vuelta en USD</ion-button>
       </ion-buttons>
 
     </ion-header>
 
     <ion-content>
-      <ion-input [(ngModel)]="precioAprox" label="Precio Aprox" labelPlacement="stacked">
+      <ion-input [(ngModel)]="precioAproxStr" label="Precio Aprox" labelPlacement="stacked">
         <ion-button (click)="guardarPrecio()">Guardar</ion-button>
       </ion-input>
     </ion-content>

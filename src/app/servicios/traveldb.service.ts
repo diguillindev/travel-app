@@ -70,7 +70,8 @@ export class TraveldbService {
         item.xid,
         item.name,
         item.preview?.source || item.image || '',
-        item.address?.country || ''
+        item.address?.country || '',
+        item.precioAproxStr
       ));
 
     } catch (error) {

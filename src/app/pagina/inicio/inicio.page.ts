@@ -5,7 +5,7 @@ import { IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonList,
 import { TraveldbService } from 'src/app/servicios/traveldb.service';
 import { ListaSugerida } from './modelo/trimapDB';
 import { addIcons } from 'ionicons';
-import {addCircleOutline, airplaneOutline} from 'ionicons/icons'
+import { addCircleOutline, airplaneOutline } from 'ionicons/icons'
 
 @Component({
   selector: 'app-inicio',
@@ -18,41 +18,69 @@ export class InicioPage implements OnInit {
 
 
 
+
   destinos: ListaSugerida[] = [];
   favoritos: ListaSugerida[] = [];
+  destinoSeleccionado: ListaSugerida | undefined  = undefined 
   searchTerm: string = '';
   isModalPriceOpen: boolean = false;
-  precioAprox: number = 0
-  
+  precioAproxStr: string = ""
+
 
   constructor(
     private servicio: TraveldbService
-  ) { 
+  ) {
     addIcons({
       addCircleOutline,
       airplaneOutline
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  /* async onSearchChange(event: any) {
+     const term = event.target.value;
+     if (term && term.trim() !== '') {
+       this.destinos = await this.servicio.getListaSugerida(term);  
+     }
+     
+   }*/
+  //se verifica si el término de búsqueda está vacío (term === ''). Si es así, la lista de destinos (this.destinos) se establece como un arreglo vacío, lo que efectivamente limpia la lista. Si el término no está vacío, se llama al servicio para obtener la lista de sugerencias como de costumbre.
 
   async onSearchChange(event: any) {
     const term = event.target.value;
-    if (term && term.trim() !== '') {
+
+    if (term === '') {
+      this.destinos = [];  // Limpiar la lista de destinos cuando el término esté vacío
+    } else {
       this.destinos = await this.servicio.getListaSugerida(term);
     }
   }
 
+
+
+
+
+
   agregarFavoritos(destino: ListaSugerida) {
     this.favoritos.push(destino)
-}
+  }
 
-  setModalPriceOpen(abierto:boolean){
+  setModalPriceOpen(abierto: boolean) {
     this.isModalPriceOpen = abierto
   }
 
+
+  abrirModalPrecio(destinoSeleccionado: ListaSugerida) {
+    this.setModalPriceOpen(true)
+    this.destinoSeleccionado = destinoSeleccionado
+  }
+
   guardarPrecio() {
-    throw new Error('Method not implemented.');
-    }
+    if (this.destinoSeleccionado != undefined) {
+      this.destinoSeleccionado.precioAproxStr = (this.precioAproxStr) 
+    } 
+    this.setModalPriceOpen(false)
+  }
 
 }

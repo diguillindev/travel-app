@@ -22,7 +22,7 @@ export interface ListaSugerida {
       public name: string, 
       public source: string = "", // Imagen vacía ya que no es proporcionada por la API en autosugggest
       public country: string,
-      public precioAprox?:number
+      public precioAproxStr :string
     ) {}
   }
   
