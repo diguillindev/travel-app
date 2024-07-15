@@ -21,7 +21,8 @@ export interface ListaSugerida {
       public xid: string,
       public name: string, 
       public source: string = "", // Imagen vacía ya que no es proporcionada por la API en autosugggest
-      public country: string
+      public country: string,
+      public precioAprox?:number
     ) {}
   }
   
