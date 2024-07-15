@@ -16,12 +16,18 @@
   </ion-list>
 </ion-content>-->
 <ion-content [fullscreen]="true">
-  <ion-searchbar (ionInput)="onSearchChange($event)" placeholder="Buscar destinos"></ion-searchbar>
+  <ion-searchbar 
+  [debounce]="2000"
+  (ionInput)="onSearchChange($event)" placeholder="Buscar destinos"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let destino of destinos">
       <ion-img [src]="destino.source"/>
-      <ion-label>{{ destino.name }}</ion-label>
-      <p>{{ destino.country }}</p>
+      <ion-label>{{ destino.name }}<br>{{ destino.country }}</ion-label>
+      <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-list>
 </ion-content>
