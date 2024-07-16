@@ -5,23 +5,26 @@ import { IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonList,
 import { TraveldbService } from 'src/app/servicios/traveldb.service';
 import { ListaSugerida } from './modelo/trimapDB';
 import { addIcons } from 'ionicons';
-import { addCircleOutline, airplaneOutline } from 'ionicons/icons'
+import { addCircleOutline, airplaneOutline, cameraOutline } from 'ionicons/icons'
+import { Camera, CameraResultType } from '@capacitor/camera';
+//import {IonicModule} from '@ionic/angular'
+
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
   standalone: true,
-  imports: [IonInput, IonModal, IonIcon, IonButtons, IonButton, IonImg, IonLabel, IonThumbnail, IonList, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, CommonModule, FormsModule]
+  imports: [ IonInput, IonModal, IonIcon, IonButtons, IonButton, IonImg, IonLabel, IonThumbnail, IonList, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, IonSearchbar, CommonModule, FormsModule]
 })
 export class InicioPage implements OnInit {
 
-
+  fotos:string[] = []
 
 
   destinos: ListaSugerida[] = [];
   favoritos: ListaSugerida[] = [];
-  destinoSeleccionado: ListaSugerida | undefined  = undefined 
+  destinoSeleccionado: ListaSugerida | undefined = undefined
   searchTerm: string = '';
   isModalPriceOpen: boolean = false;
   precioAproxStr: string = ""
@@ -32,9 +35,25 @@ export class InicioPage implements OnInit {
   ) {
     addIcons({
       addCircleOutline,
-      airplaneOutline
+      airplaneOutline,
+      cameraOutline
     })
   }
+
+  async tomarFoto() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64
+    })
+ 
+    if(image.base64String != null || image.base64String != undefined) {
+      this.fotos.push(image.base64String)
+    }
+    
+     
+    // persistir el string en memoria, BD o similar
+}
 
   ngOnInit() { }
 
@@ -57,11 +76,6 @@ export class InicioPage implements OnInit {
     }
   }
 
-
-
-
-
-
   agregarFavoritos(destino: ListaSugerida) {
     this.favoritos.push(destino)
   }
@@ -78,8 +92,8 @@ export class InicioPage implements OnInit {
 
   guardarPrecio() {
     if (this.destinoSeleccionado != undefined) {
-      this.destinoSeleccionado.precioAproxStr = (this.precioAproxStr) 
-    } 
+      this.destinoSeleccionado.precioAproxStr = (this.precioAproxStr)
+    }
     this.setModalPriceOpen(false)
   }
 
